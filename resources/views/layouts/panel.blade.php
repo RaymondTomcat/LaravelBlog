@@ -23,7 +23,9 @@
             <div class="bg-light border-right" id="sidebar-wrapper">
               <div class="sidebar-heading text-center">زهره حسینی</div>
               <div class="list-group list-group-flush">
-                تست
+                کاربر : {{ auth()->user()->name }}
+                <br>
+                نوع کاربر : {{ auth()->user()->getRolePersian() }}
               </div>
             </div>
             <!-- /#sidebar-wrapper -->

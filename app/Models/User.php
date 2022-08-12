@@ -41,4 +41,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getRolePersian()
+    {
+        if($this->role === 'user'){
+            return 'کاربر عادی';
+        }
+        if($this->role === 'admin'){
+            return 'مدیر سایت';
+        }
+        if($this->role === 'author'){
+            return 'نویسنده';
+        }
+    }
 }
