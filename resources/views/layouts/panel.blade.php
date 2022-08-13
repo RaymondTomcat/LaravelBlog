@@ -19,25 +19,12 @@
     <body>
         <div class="d-flex" id="wrapper">
 
-            <!-- Sidebar -->
-            <div class="bg-light border-right" id="sidebar-wrapper">
-              <div class="sidebar-heading text-center">زهره حسینی</div>
-              <div class="list-group list-group-flush">
-                کاربر : {{ auth()->user()->name }}
-                <br>
-                نوع کاربر : {{ auth()->user()->getRolePersian() }}
-              </div>
-            </div>
-            <!-- /#sidebar-wrapper -->
+            @include('panel.sidebar')
 
             <!-- Page Content -->
             <div id="page-content-wrapper">
 
-              <nav class="navbar navbar-expand-lg navbar-light">
-                <a href="#" id="menu-toggle">
-                    <span class="navbar-toggler-icon"></span>
-                </a>
-              </nav>
+              @include('panel.nav')
 
                 <div class="container-fluid">
                     <div class="card-body">

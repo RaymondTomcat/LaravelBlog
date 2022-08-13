@@ -1,3 +1,21 @@
+@font-face {
+    font-family: Vazirmatn;
+    src: url('../fonts/Vazirmatn-Regular.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+body{
+    font-family: Vazirmatn;
+    background-color: #EFF1F5 !important;
+}
+ul li{
+    list-style: none;
+}
+ul li a{
+    text-decoration: none;
+    color: black;
+}
 #wrapper {
     overflow-x: hidden;
   }
