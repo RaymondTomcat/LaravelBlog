@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Hekmatinasser\Verta\Verta;
 
 class User extends Authenticatable
 {
@@ -21,6 +22,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'last_seen',
     ];
 
     /**
@@ -53,5 +56,10 @@ class User extends Authenticatable
         if($this->role === 'author'){
             return 'نویسنده';
         }
+    }
+
+    public function getCreatedInJalali()
+    {
+        return verta($this->created_at)->format('Y/m/d');
     }
 }

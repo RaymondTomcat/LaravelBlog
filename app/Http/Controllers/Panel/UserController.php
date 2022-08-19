@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Panel;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
+
 
 class UserController extends Controller
 {
@@ -14,7 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('panel.users.index');
+        $users = User::select("*")
+                        ->whereNotNull('last_seen')
+                        ->orderBy('last_seen', 'DESC')
+                        ->paginate(10);
+        $users = User::all();
+        return view('panel.users.index', compact('users'));
     }
 
     /**
@@ -24,7 +32,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('panel.users.create');
     }
 
     /**
@@ -35,7 +43,18 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'role' => 'required|max:255'
+        ]);
+
+        $data = $request->only(['name', 'email', 'role']);
+        $data['password'] = Hash::make('password');
+
+        User::create($data);
+
+        return redirect()->route('users.index');
     }
 
     /**
