@@ -9,3 +9,4 @@ use App\Http\Controllers\Panel\UserController;
 // Route::post('panel/users', [UserController::class, 'store'])->name('users.store');
 
 Route::resource('/panel/users', UserController::class)->except(['show']);
+Route::delete('/panel/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');

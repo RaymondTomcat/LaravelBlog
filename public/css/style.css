@@ -9,6 +9,7 @@ body{
     font-family: Vazirmatn;
     background-color: #EFF1F5 !important;
 }
+/* Panel */
 ul li{
     list-style: none;
 }
@@ -60,3 +61,8 @@ ul li a{
     margin-right: -15rem;
   }
   }
+/* Panel */
+/* لیست کاربران  */
+.btn1, form.btn2{
+  display: inline-block;
+}

@@ -10,11 +10,13 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="{{ asset('css/bootstrap.rtl.min.css')}}">
         <link rel="stylesheet" href="{{ asset('css/all.min.css')}}">
+        <link rel="stylesheet" href="{{ asset('css/toastr.min.css')}}">
         <link rel="stylesheet" href="{{ asset('css/style.css')}}">
         <!-- Scripts -->
         <script src="{{ asset('js/jquery.min.js')}}"></script>
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
         <script src="{{ asset('js/all.min.js')}}"></script>
+        <script src="{{ asset('js/toastr.min.js')}}"></script>
     </head>
     <body>
         <div class="d-flex" id="wrapper">
@@ -41,5 +43,27 @@
               $("#wrapper").toggleClass("toggled");
             });
           </script>
+            <script>
+                @if(Session::has('message'))
+                    var type = "{{ Session::get('alert-type','info') }}"
+                    switch(type){
+                        case 'info':
+                            toastr.info(" {{ Session::get('message') }} ");
+                        break;
+
+                        case 'success':
+                            toastr.success(" {{ Session::get('message') }} ");
+                        break;
+
+                        case 'warning':
+                            toastr.warning(" {{ Session::get('message') }} ");
+                        break;
+
+                        case 'error':
+                            toastr.error(" {{ Session::get('message') }} ");
+                        break; 
+                    }
+                @endif 
+            </script>
     </body>
 </html>

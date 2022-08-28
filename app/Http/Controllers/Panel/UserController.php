@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Panel;
 
 use App\Models\User;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+
 
 
 class UserController extends Controller
@@ -54,7 +56,12 @@ class UserController extends Controller
 
         User::create($data);
 
-        return redirect()->route('users.index');
+        $notification = array(
+            'message' => 'کاربر مورد نظر با موفقیت ایجاد شد.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('users.index')->with($notification);
     }
 
     /**
@@ -74,9 +81,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        return view('panel.users.edit', compact('user'));
     }
 
     /**
@@ -88,7 +95,25 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => ['required','string','max:255'],
+            'email' => ['required','string','email','max:255', Rule::unique('users')->ignore($request->id)],
+            'role' => ['required','max:255']
+        ]);
+
+        User::where('id', $id)
+            ->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'role' => $request->role,
+            ]);
+        $notification = array(
+            'message' => 'کاربر مورد نظر با موفقیت به روز رسانی شد.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('users.index')->with($notification);
+
     }
 
     /**
@@ -99,6 +124,13 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $users = User::findOrFail($id);
+        $users->delete();
+        $notification = array(
+            'message' => 'کاربر مورد نظر با موفقیت حذف شد.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('users.index')->with($notification);
     }
 }

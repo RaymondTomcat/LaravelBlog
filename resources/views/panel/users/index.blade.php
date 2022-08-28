@@ -32,14 +32,23 @@
                     @endif
                 </td>
                 <td>{{$row->getCreatedInJalali()}}</td>
-                <td class="text-center">
-                    <div class="btn-group" role="group" aria-label="Basic mixed styles">
-                        <button type="button" class="btn btn-secondary btn-sm"><i class="fa-solid fa-edit"></i></button>
-                        <button type="button" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
+                <td>
+                    <div class="row text-center">
+                        <div class="col">
+                            <a href="{{ route('users.edit', $row->id) }}" class="btn btn-secondary btn-sm border-0 btn1"><i class="fa-solid fa-edit"></i></a>
+                        </div>
+                        <div class="col">
+                            <form method="post"
+                                action="{{ route('users.destroy',$row->id) }}">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm border-0 btn2"><i class="fa-solid fa-trash"></i></button>
+                            </form>
+                        </div>
                     </div>
                 </td>
             </tr>
-            
+
           @endforeach
         </tbody>
     </table>
