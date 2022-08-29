@@ -12,8 +12,10 @@
         </div>
 
         <ul class="mt-5">
-            <li class="fs-5 mb-3"><i class="fa-solid fa-user"></i> <a href="{{ route('users.index') }}">کاربران</a></li>
-            <li class="fs-5 mb-3"><i class="fa-solid fa-folder"></i> <a href="#">دسته بندی</a></li>
+            @if(auth()->user()->role === 'admin')
+                <li class="fs-5 mb-3"><i class="fa-solid fa-user"></i> <a href="{{ route('users.index') }}">کاربران</a></li>
+            @endif
+            <li class="fs-5 mb-3"><i class="fa-solid fa-folder"></i> <a href="{{ route('categories.index') }}">دسته بندی</a></li>
         </ul>
     </div>
 </div>
