@@ -15,35 +15,19 @@
                 </tr>
                 </thead>
                 <tbody>
-                    @foreach($category as $row)
-                    <tr>
-                        <th scope="row">{{ $row->id }}</th>
-                        <td>{{ $row->name }}</td>
-                        <td>{{ $row->slug }}</td>
-                        <td>{{ $row->getParentName() }}</td>
-                        <td>
-                            <div class="btn-group" role="group" aria-label="Basic example">
-                                <a href="{{ route('categories.edit', $row->id) }}" class="btn btn-secondary btn-sm"><i class="fa-solid fa-edit"></i></a>
-                                <form method="post" action="{{route('categories.destroy',$row->id)}}">
-                                    @method('delete')
-                                    @csrf
-                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa-solid fa-trash"></i></button>
-                                </form>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
+
                 </tbody>
             </table>
         </div>
         <div class="col-md-4">
             <div class="card">
                 <div class="card-body">
-                    <form action="{{ route('categories.store') }}" method="POST">
+                    <form action="{{route('categories.update', $category->id)}}" method="POST">
                         @csrf
+                        @method('put')
                         <div class="mb-3">
                             <label for="Input1" class="form-label">عنوان دسته بندی (فارسی)</label>
-                            <input type="text" name="name" class="form-control" id="Input1">
+                            <input type="text" name="name" class="form-control" value="{{ $category->name }}" id="Input1">
                             @error('name')
                             <div class="alert alert-danger" role="alert">
                                 {{ $message }}
@@ -52,12 +36,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="Input2" class="form-label">عنوان دسته بندی (انگلیسی)</label>
-                            <input type="text" name="slug" class="form-control" id="Input2">
-                            @error('slug')
-                            <div class="alert alert-danger" role="alert">
-                                {{ $message }}
-                            </div>
-                            @enderror
+                            <input type="text" disabled name="slug" class="form-control" value="{{ $category->slug }}" id="Input2">
+
                         </div>
                         <div class="mb-3">
                             <label for="Input3" class="form-label">دسته پدر</label>
@@ -73,7 +53,7 @@
                             </div>
                             @enderror
                         </div>
-                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> ایجاد دسته بندی</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-paper-plane"></i> به روز رسانی دسته بندی</button>
                     </form>
                 </div>
             </div>

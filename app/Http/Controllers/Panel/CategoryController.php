@@ -75,7 +75,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        $categories = Category::where('category_id', null)->get();
+        return view('panel.categories.edit', compact('categories', 'category'));
     }
 
     /**
@@ -85,9 +86,25 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'category_id' => ['nullable', 'exists:categories,id']
+        ]);
+
+        Category::where('id', $id)
+            ->update([
+                'name' => $request->name,
+                'category_id' => $request->category_id,
+            ]);
+
+        $notification = array(
+            'message' => 'دسته بندی مورد نظر با موفقیت به روز رسانی شد.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('categories.index')->with($notification);
     }
 
     /**
@@ -96,8 +113,15 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        //
+        $categories = Category::findOrFail($id);
+        $categories->delete();
+        $notification = array(
+            'message' => 'کاربر مورد نظر با موفقیت حذف شد.',
+            'alert-type' => 'success'
+        );
+
+        return redirect()->route('categories.index')->with($notification);
     }
 }
