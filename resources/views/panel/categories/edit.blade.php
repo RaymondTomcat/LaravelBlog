@@ -1,6 +1,6 @@
 <x-panel-layout>
     <x-slot name="title">
-        - کاربران
+        - ویرایش
     </x-slot>
     <div class="row">
         <div class="col-md-8">

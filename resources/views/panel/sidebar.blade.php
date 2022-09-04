@@ -16,6 +16,7 @@
                 <li class="fs-5 mb-3"><i class="fa-solid fa-user"></i> <a href="{{ route('users.index') }}">کاربران</a></li>
             @endif
             <li class="fs-5 mb-3"><i class="fa-solid fa-folder"></i> <a href="{{ route('categories.index') }}">دسته بندی</a></li>
+            <li class="fs-5 mb-3"><i class="fa-solid fa-pen"></i> <a href="{{ route('posts.index') }}">نوشته ها</a></li>
         </ul>
     </div>
 </div>
