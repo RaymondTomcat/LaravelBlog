@@ -5,7 +5,7 @@
     <div class="col-md-8 offset-2">
         <div class="card">
             <div class="card-body">
-                <form class="row g-3" action="{{ route('posts.update', $post->id) }}" method="POST">
+                <form class="row g-3" action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('put')
                     <div class="col-md-6">
@@ -24,6 +24,12 @@
                                 <option value="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">آپلود عکس</label>
+                            <input class="form-control" name="image" type="file" value="{{ $post->image }}" id="formFile">
+                        </div>
                     </div>
                     <div class="col-12">
                         <div class="mb-3">

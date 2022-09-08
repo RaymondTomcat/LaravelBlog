@@ -42,9 +42,12 @@ class PostController extends Controller
         $request->validate([
             'title' => ['required', 'string', 'max:255'],
             'slug' => ['required', 'string', 'max:255'],
+            'image' => ['required', 'image', 'mimes:jpg,png,jpeg,gif,svg', 'max:2048'],
             'description' => ['required'],
             'category_id' => ['required', 'exists:categories,id']
         ]);
+
+        $imageName = time().'.'.$request->image->extension();
 
         Post::create([
             'title' => $request->title,
@@ -52,6 +55,13 @@ class PostController extends Controller
             'description' => $request->description,
             'category_id' => $request->category_id,
         ]);
+
+        if($request->file('image')){
+            $file= $request->file('image');
+            $filename= date('YmdHi').$file->getClientOriginalName();
+            $file-> move(public_path('public/images'), $filename);
+            $data['image']= $filename;
+        }
 
         $notification = array(
             'message' => 'نوشته مورد نظر با موفقیت ثبت شد.',

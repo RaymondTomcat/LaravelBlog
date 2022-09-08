@@ -9,6 +9,7 @@
             <th scope="col">شناسه</th>
             <th scope="col">عنوان</th>
             <th scope="col">دسته بندی</th>
+            <th scope="col">عکس</th>
             <th scope="col">عملیات</th>
         </tr>
         </thead>
@@ -18,6 +19,7 @@
                 <th scope="row">{{ $row->id }}</th>
                 <th>{{ $row->title }}</th>
                 <th>{{ $row->getParentName() }}</th>
+                <th><img src="{{ url('public/images/'.$row->image) }}" style="height: 100px; width: 150px;"></th>
                 <td>
                     <div class="text-center">
                         <div class="btn-group" role="group" aria-label="Basic example">

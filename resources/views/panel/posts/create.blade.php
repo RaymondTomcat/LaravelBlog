@@ -5,7 +5,7 @@
     <div class="col-md-8 offset-2">
         <div class="card">
             <div class="card-body">
-                <form class="row g-3" action="{{ route('posts.store') }}" method="POST">
+                <form class="row g-3" action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="col-md-6">
                         <label for="inputEmail4" class="form-label">عنوان فارسی</label>
@@ -23,6 +23,12 @@
                                 <option value="{{$category->id}}">{{$category->name}}</option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label">آپلود عکس</label>
+                            <input class="form-control" name="image" type="file" id="formFile">
+                        </div>
                     </div>
                     <div class="col-12">
                         <div class="mb-3">
